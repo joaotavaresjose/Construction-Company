@@ -16,8 +16,8 @@ function Hero() {
                     loop 
                     playsInline
                 >
-                    <source src="https://videos.pexels.com/video-files/3195394/3195394-uhd_2560_1440_25fps.mp4" type="video/mp4" />
-                    <source src="https://videos.pexels.com/video-files/3209828/3209828-uhd_2560_1440_25fps.mp4" type="video/mp4" />
+                    <source src="" type="video/mp4" />
+                    <source src="" type="video/mp4" />
                 </video>
                 <div className="hero-overlay"></div>
                 
