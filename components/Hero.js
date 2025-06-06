@@ -14,9 +14,10 @@ function Hero() {
             className="hero-bg min-h-screen flex items-center justify-center text-white relative"
           >
             <video className="hero-video" autoPlay muted loop playsInline>
-              <source src="" type="video/mp4" />
-              <source src="" type="video/mp4" />
-              <source src="video/banner30fps.mp4" type="video/mp4" />
+              <source src="video/banner12fps.mp4" type="video/mp4" />
+              <source src="video/banner15fps.mp4" type="video/mp4" />
+              <source src="video/banner24fps.mp4" type="video/mp4" />
+              <source src="video/banner25fps.mp4" type="video/mp4" />
             </video>
             <div className="hero-overlay"></div>
 
