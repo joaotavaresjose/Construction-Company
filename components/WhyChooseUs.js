@@ -35,9 +35,9 @@ function WhyChooseUs() {
 
         return (
             <section id="why-choose-us" data-name="why-choose-us" data-file="components/WhyChooseUs.js" 
-                     className="py-20 bg-orange-600 text-white">
+                     className="py-20 bg-orange-600 text-white overflow-hidden">
                 <div className="container mx-auto px-4">
-                    <div className="text-center mb-16">
+                    <div className="text-center mb-16" data-aos="fade-up">
                         <h2 className="text-3xl md:text-4xl font-bold mb-4">Por Que Escolher a Construction Company?</h2>
                         <p className="text-lg md:text-xl max-w-2xl mx-auto opacity-90">
                             Somos referência em construção civil com diferenciais únicos
@@ -46,7 +46,10 @@ function WhyChooseUs() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                         {reasons.map((reason, index) => (
-                            <div key={index} className="text-center group hover:transform hover:scale-105 transition-all duration-300">
+                            <div key={index} 
+                                 className="text-center group hover:transform hover:scale-105 transition-all duration-300"
+                                 data-aos="fade-up"
+                                 data-aos-delay={index * 100}>
                                 <div className="bg-white/10 w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6 group-hover:bg-white/20 transition-colors">
                                     <i className={`${reason.icon} text-2xl md:text-3xl`}></i>
                                 </div>

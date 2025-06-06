@@ -1,6 +1,10 @@
 function Testimonials() {
     try {
         const [currentSlide, setCurrentSlide] = React.useState(0);
+        const [isDragging, setIsDragging] = React.useState(false);
+        const [startPos, setStartPos] = React.useState(0);
+        const [currentTranslate, setCurrentTranslate] = React.useState(0);
+        const [prevTranslate, setPrevTranslate] = React.useState(0);
         
         const testimonials = [
             {
@@ -13,7 +17,7 @@ function Testimonials() {
             {
                 name: 'João Santos',
                 role: 'Empresário',
-                image: '/img/person.jpg',
+                image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
                 text: 'Profissionais competentes e confiáveis. Reformaram nosso escritório com perfeição.',
                 rating: 5
             },
@@ -27,7 +31,7 @@ function Testimonials() {
             {
                 name: 'Pedro Oliveira',
                 role: 'Engenheiro',
-                image: '/img/person.jpg',
+                image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
                 text: 'Trabalho de alta qualidade técnica. Recomendo para qualquer tipo de projeto.',
                 rating: 5
             },
@@ -41,9 +45,9 @@ function Testimonials() {
         ];
 
         const getCardsPerView = () => {
-            if (window.innerWidth < 768) return 1; // mobile
-            if (window.innerWidth < 1024) return 2; // tablet
-            return 3; // desktop
+            if (window.innerWidth < 768) return 1;
+            if (window.innerWidth < 1024) return 2;
+            return 3;
         };
 
         const [cardsPerView, setCardsPerView] = React.useState(getCardsPerView());
@@ -64,6 +68,37 @@ function Testimonials() {
             setCurrentSlide(prev => prev <= 0 ? maxSlide : prev - 1);
         };
 
+        // Drag handlers
+        const getPositionX = (event) => {
+            return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+        };
+
+        const dragStart = (event) => {
+            setIsDragging(true);
+            setStartPos(getPositionX(event));
+            setPrevTranslate(currentSlide * -(100 / cardsPerView));
+        };
+
+        const dragMove = (event) => {
+            if (!isDragging) return;
+            event.preventDefault();
+            const currentPosition = getPositionX(event);
+            const diff = currentPosition - startPos;
+            const maxDiff = window.innerWidth * 0.3;
+            const constrainedDiff = Math.max(-maxDiff, Math.min(maxDiff, diff));
+            setCurrentTranslate(prevTranslate + (constrainedDiff / window.innerWidth) * 100);
+        };
+
+        const dragEnd = () => {
+            setIsDragging(false);
+            const moved = currentTranslate - prevTranslate;
+            
+            if (moved < -10) nextSlide();
+            else if (moved > 10) prevSlide();
+            
+            setCurrentTranslate(currentSlide * -(100 / cardsPerView));
+        };
+
         React.useEffect(() => {
             const interval = setInterval(nextSlide, 5000);
             return () => clearInterval(interval);
@@ -71,20 +106,31 @@ function Testimonials() {
 
         return (
             <section id="testimonials" data-name="testimonials" data-file="components/Testimonials.js" 
-                     className="py-20 bg-gray-50">
+                     className="py-20 bg-gray-50 overflow-hidden">
                 <div className="container mx-auto px-4">
-                    <div className="text-center mb-16">
+                    <div className="text-center mb-16" data-aos="fade-up">
                         <h2 className="text-4xl font-bold text-gray-900 mb-4">O Que Nossos Clientes Dizem</h2>
                         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
                             Veja os depoimentos de quem confia em nosso trabalho
                         </p>
                     </div>
 
-                    <div className="relative max-w-6xl mx-auto">
-                        <div className="overflow-hidden">
+                    <div className="relative max-w-6xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                        <div 
+                            className="overflow-hidden cursor-grab active:cursor-grabbing"
+                            onMouseDown={dragStart}
+                            onTouchStart={dragStart}
+                            onMouseMove={dragMove}
+                            onTouchMove={dragMove}
+                            onMouseUp={dragEnd}
+                            onTouchEnd={dragEnd}
+                            onMouseLeave={dragEnd}
+                        >
                             <div 
-                                className="flex transition-transform duration-500 ease-in-out"
-                                style={{ transform: `translateX(-${currentSlide * (100 / cardsPerView)}%)` }}
+                                className={`flex ${isDragging ? '' : 'transition-transform duration-500 ease-in-out'}`}
+                                style={{ 
+                                    transform: `translateX(${isDragging ? currentTranslate : currentSlide * -(100 / cardsPerView)}%)` 
+                                }}
                             >
                                 {testimonials.map((testimonial, index) => (
                                     <div key={index} className={`flex-shrink-0 px-4 ${

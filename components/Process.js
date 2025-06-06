@@ -29,9 +29,9 @@ function Process() {
 
         return (
             <section id="process" data-name="process" data-file="components/Process.js" 
-                     className="py-20 bg-gray-50">
+                     className="py-20 bg-gray-50 overflow-hidden">
                 <div className="container mx-auto px-4">
-                    <div className="text-center mb-16">
+                    <div className="text-center mb-16" data-aos="fade-up">
                         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Nosso Processo</h2>
                         <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
                             Um processo estruturado para garantir o sucesso do seu projeto
@@ -40,7 +40,10 @@ function Process() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                         {steps.map((step, index) => (
-                            <div key={index} className="text-center relative group">
+                            <div key={index} 
+                                 className="text-center relative group"
+                                 data-aos="fade-up"
+                                 data-aos-delay={index * 100}>
                                 <div className="bg-orange-600 text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6 text-lg md:text-xl font-bold group-hover:scale-110 transition-transform">
                                     {step.number}
                                 </div>

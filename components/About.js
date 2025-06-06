@@ -12,7 +12,7 @@ function About() {
                      className="py-20 bg-white">
                 <div className="container mx-auto px-4">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                        <div>
+                        <div data-aos="fade-right">
                             <h2 className="text-4xl font-bold text-gray-900 mb-6">Sobre Nós</h2>
                             <p className="text-lg text-gray-600 mb-6">
                                 A Construction Company é uma empresa líder no setor de construção civil, 
@@ -27,7 +27,10 @@ function About() {
                             
                             <div className="grid grid-cols-2 gap-4">
                                 {stats.map((stat, index) => (
-                                    <div key={index} className="text-center p-4 bg-orange-50 rounded-lg">
+                                    <div key={index} 
+                                         className="text-center p-4 bg-orange-50 rounded-lg"
+                                         data-aos="fade-up"
+                                         data-aos-delay={index * 100}>
                                         <div className="text-3xl font-bold text-orange-600 mb-2">{stat.number}</div>
                                         <div className="text-sm text-gray-600">{stat.label}</div>
                                     </div>
@@ -35,9 +38,9 @@ function About() {
                             </div>
                         </div>
                         
-                        <div className="relative">
+                        <div className="relative" data-aos="fade-left">
                             <img 
-                                src="/img/about.avif"
+                                src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                                 alt="Equipe de construção"
                                 className="rounded-xl shadow-2xl"
                             />

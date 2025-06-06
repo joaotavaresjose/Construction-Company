@@ -1,26 +1,28 @@
 function Team() {
     try {
         const [currentSlide, setCurrentSlide] = React.useState(0);
+        const [touchStart, setTouchStart] = React.useState(null);
+        const [touchEnd, setTouchEnd] = React.useState(null);
         
         const team = [
             {
                 name: 'Carlos Pereira',
                 role: 'Engenheiro Civil',
-                image: '/img/person.jpg',
+                image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
                 experience: '15 anos',
                 specialty: 'Estruturas e Fundações'
             },
             {
                 name: 'Fernanda Lima',
                 role: 'Arquiteta',
-                image: '/img/person.jpg',
+                image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
                 experience: '12 anos',
                 specialty: 'Design e Interiores'
             },
             {
                 name: 'Roberto Souza',
                 role: 'Mestre de Obras',
-                image: '/img/person.jpg',
+                image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
                 experience: '20 anos',
                 specialty: 'Execução e Qualidade'
             },
@@ -34,7 +36,7 @@ function Team() {
             {
                 name: 'André Silva',
                 role: 'Engenheiro Elétrico',
-                image: '/img/person.jpg',
+                image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
                 experience: '8 anos',
                 specialty: 'Instalações Elétricas'
             },
@@ -48,10 +50,10 @@ function Team() {
         ];
 
         const getCardsPerView = () => {
-            if (window.innerWidth < 640) return 1; // mobile
-            if (window.innerWidth < 1024) return 2; // tablet
-            if (window.innerWidth < 1280) return 3; // desktop small
-            return 4; // desktop large
+            if (window.innerWidth < 640) return 1;
+            if (window.innerWidth < 1024) return 2;
+            if (window.innerWidth < 1280) return 3;
+            return 4;
         };
 
         const [cardsPerView, setCardsPerView] = React.useState(getCardsPerView());
@@ -72,6 +74,28 @@ function Team() {
             setCurrentSlide(prev => prev <= 0 ? maxSlide : prev - 1);
         };
 
+        // Touch handlers
+        const minSwipeDistance = 50;
+
+        const onTouchStart = (e) => {
+            setTouchEnd(null);
+            setTouchStart(e.targetTouches[0].clientX);
+        };
+
+        const onTouchMove = (e) => {
+            setTouchEnd(e.targetTouches[0].clientX);
+        };
+
+        const onTouchEnd = () => {
+            if (!touchStart || !touchEnd) return;
+            const distance = touchStart - touchEnd;
+            const isLeftSwipe = distance > minSwipeDistance;
+            const isRightSwipe = distance < -minSwipeDistance;
+
+            if (isLeftSwipe) nextSlide();
+            if (isRightSwipe) prevSlide();
+        };
+
         const getCardWidth = () => {
             switch(cardsPerView) {
                 case 1: return 'w-full';
@@ -84,17 +108,22 @@ function Team() {
 
         return (
             <section id="team" data-name="team" data-file="components/Team.js" 
-                     className="py-20 bg-white">
+                     className="py-20 bg-white overflow-hidden">
                 <div className="container mx-auto px-4">
-                    <div className="text-center mb-16">
+                    <div className="text-center mb-16" data-aos="fade-up">
                         <h2 className="text-4xl font-bold text-gray-900 mb-4">Nossa Equipe</h2>
                         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
                             Profissionais qualificados e experientes para seu projeto
                         </p>
                     </div>
 
-                    <div className="relative max-w-6xl mx-auto">
-                        <div className="overflow-hidden">
+                    <div className="relative max-w-6xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                        <div 
+                            className="overflow-hidden"
+                            onTouchStart={onTouchStart}
+                            onTouchMove={onTouchMove}
+                            onTouchEnd={onTouchEnd}
+                        >
                             <div 
                                 className="flex transition-transform duration-500 ease-in-out"
                                 style={{ transform: `translateX(-${currentSlide * (100 / cardsPerView)}%)` }}

@@ -42,7 +42,7 @@ Mensagem: ${data.message}`;
             <section id="contact" data-name="contact" data-file="components/Contact.js" 
                      className="py-20 bg-white">
                 <div className="container mx-auto px-4">
-                    <div className="text-center mb-16">
+                    <div className="text-center mb-16" data-aos="fade-up">
                         <h2 className="text-4xl font-bold text-gray-900 mb-4">Entre em Contato</h2>
                         <p className="text-xl text-gray-600">
                             Solicite seu orçamento gratuito e tire suas dúvidas
@@ -50,7 +50,7 @@ Mensagem: ${data.message}`;
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                        <div>
+                        <div data-aos="fade-right">
                             <h3 className="text-2xl font-semibold text-gray-900 mb-6">Informações de Contato</h3>
                             
                             <div className="space-y-6">
@@ -86,7 +86,7 @@ Mensagem: ${data.message}`;
                             </div>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="space-y-6">
+                        <form onSubmit={handleSubmit} className="space-y-6" data-aos="fade-left">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <input
                                     type="text"
