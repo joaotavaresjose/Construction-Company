@@ -16,9 +16,9 @@ function Hero() {
                     loop 
                     playsInline
                 >
-                    <source src="https://videos.pexels.com/video-files/3209828/3209828-uhd_2560_1440_25fps.mp4" type="video/mp4" />
+                    <source src="video/banner25fps.mp4" type="video/mp4" />
                     <source src="https://videos.pexels.com/video-files/4491459/4491459-uhd_2560_1440_24fps.mp4" type="video/mp4" />
-                    <source src="https://videos.pexels.com/video-files/3130284/3130284-uhd_2560_1440_30fps.mp4" type="video/mp4" />
+                    <source src="video/banner30fps.mp4" type="video/mp4" />
                 </video>
                 <div className="hero-overlay"></div>
                 
@@ -48,9 +48,6 @@ function Hero() {
                         </div>
                     </div>
                     
-                    <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 bounce hidden sm:block">
-                        <i className="fas fa-chevron-down text-2xl"></i>
-                    </div>
                 </div>
             </section>
         );
