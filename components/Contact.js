@@ -13,7 +13,7 @@ Email: ${data.email}
 Telefone: ${data.phone}
 Mensagem: ${data.message}`;
             
-            const whatsappUrl = `https://wa.me/351951184916?text=${encodeURIComponent(message)}`;
+            const whatsappUrl = `https://wa.me/244951184916?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         };
 
