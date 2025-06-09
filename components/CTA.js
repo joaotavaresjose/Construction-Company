@@ -2,7 +2,7 @@ function CTA() {
     try {
         const sendWhatsAppMessage = () => {
             const message = "Olá! Gostaria de solicitar um orçamento para meu projeto de construção.";
-            const whatsappUrl = `https://wa.me/351951184916?text=${encodeURIComponent(message)}`;
+            const whatsappUrl = `https://wa.me/244951184916?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         };
 
